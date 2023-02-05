@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="chess, ai, minimax, algorithm, computer, bot">
+    <meta name="description" content="Play chess against powerful and logical bots.">
+    <link rel="icon" href="https://t4.ftcdn.net/jpg/03/19/21/93/360_F_319219353_IBa0upaNe0DqF3wCw6J07AL1e4DLWQMe.jpg">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- jQuery --> 
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous">
+    </script>
+
+    <!-- Chessboard.js Styling -->
+    <link rel="stylesheet"
+    href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css"
+    integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU"
+    crossorigin="anonymous">
+    <!-- Chessboard.js Script -->
+    <script defer src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"
+    integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD"
+    crossorigin="anonymous"></script>
+
+    <title>Play Chess</title>
+</head>
+<body>
+    <h1 id="title">Play Chess Against AI</h1>
+    <section id="display">
+        <section id="game">
+            <div id="board"></div>
+            <div id="stats">
+                <div class="stat"> No check, checkmate, or draw. </div>
+                <p>Advantage</p>
+                <div class="stat"></div>
+                <p>Set Difficulty</p>
+                <div class="stat"></div>
+            </div>
+        </section>
+        <section id="controls">
+            <div id="undo-redo-hint">
+                <div id="undo-redo">
+                    <button class="control-btn">Undo</button>
+                    <button class="control-btn">Redo</button>
+                </div>
+                <div id="hint">
+                    <button class="control-btn">Get Hint</button>
+                </div>
+            </div>
+        </section>
+    </section>
+    
+    <!-- Chess.js -->
+    <script defer src="chess.js"></script>
+    <!-- My Own JavaScript -->
+    <script defer src="app.js"></script>
+</body>
+</html>
