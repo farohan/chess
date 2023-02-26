@@ -211,3 +211,134 @@ function evaluateBoard(game, move, prevSum, color) {
 
     return prevSum;
 }
+
+//The minimax function to choose the move with the highest possible score
+
+/* 
+    Inputs:
+        - game:                 the game object.
+        - depth:                the depth of the recursive tree of all possible moves (i.e. height limit).
+        - isMaximizingPlayer:   true if the current layer is maximizing, false otherwise.
+        - sum:                  the sum (evaluation) so far at the current layer.
+        - color:                the color of the current player.
+*/
+
+function minimax(game, depth, alpha, beta, isMaximizingPlayer, sum, color) {
+    positionCount++;
+    let children = game.ugly_moves({verbose: true});
+
+    //Sorts moves randomly, so same moves aren't always chosen
+    children.sort(function (a, b) {
+        return 0.5 - Math.random();
+    });
+
+    let currMove;
+    //If maximum depth exceeded or node is a terminal node (with no children)
+    if (depth === 0 || children.length === 0) {
+        return [null, sum];
+    }
+
+    //Find the max/min from a list of children (possible moves)
+    //By testing how it would play out in the evaluateBoard function
+    let maxValue = Number.NEGATIVE_INFINITY;
+    let minValue = Number.POSITIVE_INFINITY;
+    let bestMove;
+    for (let i = 0; i < children.length; i++) {
+        currMove = children[i];
+
+        //In our case, the 'children' are modified game states
+        let currPrettyMove = game.ugly_move(currMove);
+        let newSum = evaluateBoard(game, currPrettyMove, sum, color);
+        let [childBestMove, childValue] = minimax(
+            game,
+            depth - 1,
+            alpha,
+            beta,
+            !isMaximizingPlayer,
+            newSum,
+            color
+        );
+
+        game.undo();
+
+        //if the current move's value proves to be 
+        //more than the max value so far,
+        //the current move is chosen to be the new max value
+        if (isMaximizingPlayer) {
+            if (childValue > maxValue) {
+              maxValue = childValue;
+              bestMove = currPrettyMove;
+            }
+            if (childValue > alpha) {
+              alpha = childValue;
+            }
+        } else {
+            if (childValue < minValue) {
+              minValue = childValue;
+              bestMove = currPrettyMove;
+            }
+            if (childValue < beta) {
+              beta = childValue;
+            }
+        }
+
+        //Alpha-beta pruning, removes extra steps that the processor has to take
+        //making the application faster and better performing
+
+        if (alpha >= beta) {
+            break;
+        }
+    }
+
+    if (isMaximizingPlayer) {
+        return [bestMove, maxValue];
+    } else {
+        return [bestMove, minValue];
+    }
+}   
+
+function checkStatus(color) {
+    if (game.in_checkmate()) {
+        $('#status').html(`Checkmate! <strong>${color} lost.</strong>`);
+    } else if (game.insufficient_material()) {
+        $('#status').html(`<strong>Draw</strong> (Insufficient Material)`);
+    } else if (game.in_threefold_repetition()) {
+        $('#status').html(`<strong>Draw</strong> (Threefold Repetition)`);
+    } else if (game.in_stalemate()) {
+        $('#status').html(`<strong>Stalemate</strong> - No one wins`);
+    } else if (game.in_draw()) {
+        $('#status').html(`<strong>Draw</strong> (50-move Rule)`);
+    } else if (game.in_check()) {
+        $('#status').html(`<strong>${color}</strong> is in <strong>check!</strong>`);
+        return false;
+    } else {
+        $('#status').html(`No check, checkmate, or draw.`);
+        return false;
+    }
+
+    return true;
+}
+
+// function updateAdvantage() {
+//     if (globalSum > 0) {
+//       $('#advantageColor').text('Black');
+//       $('#advantageNumber').text(globalSum);
+//     } else if (globalSum < 0) {
+//       $('#advantageColor').text('White');
+//       $('#advantageNumber').text(-globalSum);
+//     } else {
+//       $('#advantageColor').text('Neither side');
+//       $('#advantageNumber').text(globalSum);
+//     }
+//     $('#advantageBar').attr({
+//       'aria-valuenow': `${-globalSum}`,
+//       style: `width: ${((-globalSum + 2000) / 4000) * 100}%`,
+//     });
+// }
+
+//Calculates the best legal move for the given color
+function getBestMove(game, color, currSum) {
+    positionCount = 0;
+
+    //keep working...
+}
