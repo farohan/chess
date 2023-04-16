@@ -1,33 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-
-* {
-    font-family: 'Lato', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
-    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    box-sizing: border-box;
-}
-
-html {
-    font-size: 62.5%;
-    scroll-behavior: smooth;
-}
-
-body {
-    margin: 0;
-    min-height: 100vh;
-    line-height: 1.5;
-    background: rgb(35, 35, 35);
-    color: beige;
-}
-
-p, div {
-    font-size: 16px;
-}
-
-#title {
+.text-align-center {
     text-align: center;
-    font-size: 3rem;
 }
 
-.control-btn {
-    cursor: pointer;
+#myBoard {
+    max-width: 100%;
+    height: auto;
+    overflow: scroll;
+}
+
+.highlight-white {
+    box-shadow: inset 0 0 100px 100px rgb(255, 213, 0);
+}
+
+.highlight-black {
+    box-shadow: inset 0 0 100px 100px rgb(0, 131, 196);
+}
+
+.highlight-hint {
+    box-shadow: inset 0 0 100px 100px rgb(0, 175, 9);
+}
+
+.no-underline {
+    text-decoration: none;
+}
+
+.no-outline:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.btn-header {
+    font-size: 20px;
+    font-weight: bold;
 }
