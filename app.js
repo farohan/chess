@@ -1,6 +1,6 @@
 //Welcome to app.js!
 
-import { Chess } from "./chess.js";
+import { Chess } from "chess.js";
 
 var STACK_SIZE = 100; // maximum size of undo stack
 
